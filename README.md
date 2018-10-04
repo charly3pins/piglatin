@@ -14,9 +14,9 @@ The rules to translate from English to Pig Latin are the following:
 - Let's assume that there are no contractions in the English text;
 
 ## How it works
-First of all you need to clone the project:
+First of all you need to download the project:
 ```
-git clone https://github.com/charly3pins/piglatin.git
+go get github.com/charly3pins/piglatin
 ```
 The translation service is accessible via 2 ways. A command-line servive and the API interface. 
 
@@ -24,6 +24,7 @@ The translation service is accessible via 2 ways. A command-line servive and the
 This part is for testing the service without up&running the API. You can provide the text via `flag` in your terminal and the response will be the text translated.
 To generate the binary you need to type:
 ```
+cd $GOPATH/src/github.com/charly3pins/piglatin
 go build -o demo ./cmd/demo
 ```
 If you want to translate the text `Roses are red, violets are blue` you need to type:
