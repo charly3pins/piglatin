@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestTranslate_symbolOK(t *testing.T) {
+func TestTranslate_textAndSymbolOK(t *testing.T) {
 	defaultHandler := DefaultHandler{}
 	quHandler := QuHandler{Next: &defaultHandler}
 	vowelHandler := VowelHandler{Next: &quHandler}
@@ -14,6 +14,21 @@ func TestTranslate_symbolOK(t *testing.T) {
 	w := &word{Original: "takeMySymbol!"}
 	res := symbolsHandler.Translate(w)
 	exepected := "akeMySymboltay!"
+	if res.GetTranslated() != exepected {
+		t.Errorf("Expecting %s obtained %s", exepected, res.GetTranslated())
+	}
+}
+
+func TestTranslate_symbolOK(t *testing.T) {
+	defaultHandler := DefaultHandler{}
+	quHandler := QuHandler{Next: &defaultHandler}
+	vowelHandler := VowelHandler{Next: &quHandler}
+	hyphenHandler := HyphenHandler{Next: &vowelHandler}
+	symbolsHandler := SymbolsHandler{Next: &hyphenHandler}
+
+	w := &word{Original: "!"}
+	res := symbolsHandler.Translate(w)
+	exepected := "!"
 	if res.GetTranslated() != exepected {
 		t.Errorf("Expecting %s obtained %s", exepected, res.GetTranslated())
 	}
