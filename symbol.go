@@ -27,8 +27,12 @@ func (s *SymbolsHandler) Translate(w Word) Word {
 	ss := []string{}
 	for _, symbol := range matches {
 		sanitized := strings.Split(w.GetOriginal(), symbol)
-		s := s.Next.Translate(&word{Original: sanitized[0]})
+		if len(sanitized) > 0 && len(sanitized[0]) <= 0 {
+			w.SetTranslated(symbol)
+			return w
+		}
 
+		s := s.Next.Translate(&word{Original: sanitized[0]})
 		ss = append(ss, fmt.Sprintf("%s%s", s.GetTranslated(), symbol))
 	}
 	w.SetTranslated(strings.Join(ss, ""))
